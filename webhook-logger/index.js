@@ -1,7 +1,11 @@
 const express = require('express');
+const bodyparser = require('body-parser');
+
 const app = express();
 const port = process.env.PORT || 8080;
 const endpoint = process.env.ENDPOINT || '/webhook'
+
+app.use(bodyparser.json());
 
 function requestHandler(req, res) {
     console.log(req.method, req.originalUrl);
@@ -11,7 +15,8 @@ function requestHandler(req, res) {
 }
 
 // health endpoint
-app.get('/', (req, res) => {
+app.post('/', (req, res) => {
+    req.xhr
     res.send('ok');
 })
 
